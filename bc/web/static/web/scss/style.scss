@@ -1,0 +1,9 @@
+@charset "utf-8";
+@import "mixin";
+@import "css3";
+@import "media_queries";
+
+html{
+	border-radius: 5px;
+	transition: all 0.5s;
+}

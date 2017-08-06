@@ -1,0 +1,112 @@
+@charset "utf-8";
+// 字体
+@mixin fz($fz: 12px, $color: #666, $lh: 2){
+	font-size: $fz;
+	line-height: $lh;
+    color: $color;
+}
+// 位置
+@mixin w($width: 1000px){
+	width : $width;
+	margin: 0 auto;
+}
+@mixin enter($location: left, $distance: 20px){
+    position: relative;
+    opacity: 0;
+    @if $location == left {
+        left : $distance;
+    }
+    @else {
+        top : $distance;
+    }
+}
+
+// 居中 
+@mixin poshalf($size:1920px, $direction: left){
+	position: absolute;
+    @if $direction == left {
+        left: 50%;
+        width: $size;
+        margin-left: - $size / 2;
+    }@else {
+        top: 50%;
+        height: $size;
+        margin-top: - $size / 2;
+    }
+}
+
+@mixin tf($type: all, $time : 0.5s){
+	transition: $type $time;
+}
+
+// fixed top & bottom
+@mixin fixed($pos: 0) {
+    position: fixed;
+    left: 0;
+    right: 0;
+    @if $pos == bottom {
+        bottom: 0;
+    }
+    @else {
+        top: $pos;
+    }
+}
+%fixed-top{
+    @include fixed;
+}
+%fixed-bottom{
+    @include fixed($pos: bottom);
+}
+
+// triangle 三角箭头
+%triangle-basic {
+    content: "";
+    height: 0;
+    width: 0;
+    overflow: hidden;
+}
+@mixin triangle($direction: top, $borderWidth: 6px, $borderColor: #fff) {
+    @extend %triangle-basic;
+    @if $direction == top {
+        border-bottom: $borderWidth solid $borderColor;
+        border-left: $borderWidth dashed transparent;
+        border-right: $borderWidth dashed transparent;
+    }
+    @else if $direction == right {
+        border-left: $borderWidth solid $borderColor;
+        border-top: $borderWidth dashed transparent;
+        border-bottom: $borderWidth dashed transparent;
+    }
+    @else if $direction == bottom {
+        border-top: $borderWidth solid $borderColor;
+        border-left: $borderWidth dashed transparent;
+        border-right: $borderWidth dashed transparent;
+    }
+    @else if $direction == left {
+        border-right: $borderWidth solid $borderColor;
+        border-top: $borderWidth dashed transparent;
+        border-bottom: $borderWidth dashed transparent;
+    }
+}
+
+// 函数
+@function bg($url, $left: 0, $top: 0, $repeat: no-repeat, $color: transparent){
+	@return url($url) $repeat $left $top $color;
+}
+
+@mixin out($mainwidth: 720px, $mainheight: 480px, $colsebg: "../img/close01.png",$bgcolor: #000, $bgopacity: 0.5){
+    .bg{
+        background: $bgcolor;
+        opacity: $bgopacity;
+    }
+    .main{
+        left: 50%;
+        width: $mainwidth;
+        height: $mainheight;
+        margin-left: - $mainwidth / 2;
+    }
+    .close{
+        background: background($colsebg);
+        cursor: pointer;
+    }
+}
